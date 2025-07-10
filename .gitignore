@@ -1,0 +1,37 @@
+# Exclude all directories and subdirectories
+/*
+!README.md
+!.gitignore
+
+# Numerous always-ignore extensions
+*.diff
+*.err
+*.orig
+*.log
+*.tmp
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+*.sass-cache
+
+# OS or Editor folders
+.DS_Store
+Thumbs.db
+.cache
+.project
+.settings
+.tmproj
+*.esproj
+nbproject
+*.sublime-project
+*.sublime-workspace
+
+## Plugins: exclude all plugin directories except your custom plugims
+# include custom plugins here:
+!resilient-bits-plugin/
+
+## Exclude dependencies: composer, node, etc.
+**/vendor
+**/node_modules
