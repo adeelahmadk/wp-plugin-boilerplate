@@ -22,7 +22,6 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
 use ResilientBits\Inc\StateManager;
 
 if (!class_exists('ResilientBitsPlugin')) {
-    require_once 'inc/StateManager.php';
 
     class ResilientBitsPlugin {
         public string $plugin;
