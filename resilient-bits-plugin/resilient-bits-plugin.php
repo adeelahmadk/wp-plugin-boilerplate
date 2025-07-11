@@ -20,6 +20,7 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
 }
 
 use ResilientBits\Inc\StateManager;
+use ResilientBits\Inc\Admin\AdminPages;
 
 if (!class_exists('ResilientBitsPlugin')) {
 
@@ -75,6 +76,8 @@ if (!class_exists('ResilientBitsPlugin')) {
         }
 
         public function activate() {
+            // register CPT
+            // activate
             StateManager::activate();
         }
     }
@@ -86,5 +89,9 @@ if (!class_exists('ResilientBitsPlugin')) {
     register_activation_hook(__FILE__, array($resbitPlugin, 'activate'));
 
     // deactivation
-    register_deactivation_hook(__FILE__, array('ResilientBits\Inc\StateManager', 'deactivate'));
+    /* use fully qualified class name:
+       - 'ResilientBits\Inc\StateManager', or
+       - StateManager::class
+    */
+    register_deactivation_hook(__FILE__, array(StateManager::class, 'deactivate'));
 }
