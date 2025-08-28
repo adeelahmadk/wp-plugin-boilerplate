@@ -1,0 +1,19 @@
+{
+    "name": "resilientbits/resilient-bits-plugin",
+    "description": "An object oriented boilerplate for WordPress plugin.",
+    "type": "project",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Adeel Ahmad",
+            "email": "6880680+adeelahmadk@users.noreply.github.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+    	"psr-4": {
+    		"ResilientBits\\Inc\\": "./inc"
+    	}
+    }
+}
