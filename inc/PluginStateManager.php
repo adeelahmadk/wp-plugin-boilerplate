@@ -1,10 +1,14 @@
 <?php
 /**
+ * @author Adeel Ahmad <6880680+adeelahmadk@users.noreply.github.com>
  * @package  ResilientBitsPlugin
  */
 namespace ResilientBits\Inc;
 
-class StateManager {
+/**
+ * Manages activate/deactivate states of a plugin
+ */
+class PluginStateManager {
   public static function activate() {
     flush_rewrite_rules();
   }

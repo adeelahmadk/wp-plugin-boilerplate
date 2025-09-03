@@ -4,13 +4,31 @@
 */
 /*
 Plugin Name: Resilient Bits Plugin
-Plugin URI: http://resilientbits.com/plugin
+Plugin URI: https://github.com/adeelahmadk/wp-plugin-boilerplate
 Description: This is a template for writing a custom Plugin in object oriented PHP.
 Version: 1.0.0
-Author: Adeel Ahmad
+Author: Adeel Ahmad <6880680+adeelahmadk@users.noreply.github.com>
 Author URI: http://adeelahmadk.github.io
 License: GPLv2 or later
 Text Domain: resbit-plugin
+*/
+
+/*
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, see
+<https://www.gnu.org/licenses/>.
+
+Copyright (C) 2025  Adeel Ahmad
 */
 
 defined('ABSPATH') or die('Hey, you are not supposed to be here!');
@@ -19,7 +37,7 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
     require_once __DIR__ . '/vendor/autoload.php';
 }
 
-use ResilientBits\Inc\StateManager;
+use ResilientBits\Inc\PluginStateManager;
 use ResilientBits\Inc\Admin\AdminPages;
 
 if (!class_exists('ResilientBitsPlugin')) {
@@ -32,11 +50,11 @@ if (!class_exists('ResilientBitsPlugin')) {
         }
 
         public function register() {
-            add_action('admin_enqueue_scripts', array($this, 'enqueue'));
+            add_action('admin_enqueue_scripts', [$this, 'enqueue']);
 
-            add_action('admin_menu', array($this, 'add_admin_pages'));
+            add_action('admin_menu', [$this, 'add_admin_pages']);
 
-            add_filter("plugin_action_links_$this->plugin", array($this, 'settings_link'));
+            add_filter("plugin_action_links_$this->plugin", [$this, 'settings_link']);
         }
 
         public function settings_link($links) {
@@ -51,7 +69,7 @@ if (!class_exists('ResilientBitsPlugin')) {
                 'ResilientBits', // menu title
                 'manage_options', // capability
                 'resilientbits_plugin', // menu slug
-                array($this, 'admin_index'), // callback
+                [$this, 'admin_index'], // callback
                 'dashicons-store', // icon
                 110 // position
             );
@@ -62,7 +80,7 @@ if (!class_exists('ResilientBitsPlugin')) {
         }
 
         protected function create_post_type() {
-            add_action('init', array($this, 'custom_post_type'));
+            add_action('init', [$this, 'custom_post_type']);
         }
 
         public function custom_post_type() {
@@ -76,22 +94,25 @@ if (!class_exists('ResilientBitsPlugin')) {
         }
 
         public function activate() {
-            // register CPT
-            // activate
-            StateManager::activate();
+            // call protected method to register CPT
+            // $this->create_post_type();
+            // flush rewrite rules
+            PluginStateManager::activate();
         }
     }
 
     $resbitPlugin = new ResilientBitsPlugin();
-    $resbitPlugin->register();
+    $resbitPlugin->register();  // register hooks
 
     // activation
-    register_activation_hook(__FILE__, array($resbitPlugin, 'activate'));
+    register_activation_hook(__FILE__, [$resbitPlugin, 'activate']);
 
     // deactivation
     /* use fully qualified class name:
-       - 'ResilientBits\Inc\StateManager', or
-       - StateManager::class
+       - 'ResilientBits\Inc\PluginStateManager', or
+       - PluginStateManager::class
     */
-    register_deactivation_hook(__FILE__, array(StateManager::class, 'deactivate'));
+    register_deactivation_hook(__FILE__, [PluginStateManager::class, 'deactivate']);
+
+    // uninstall via uninstall.php
 }

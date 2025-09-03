@@ -8,7 +8,7 @@ Prerequisites:
 1. WordPress installation, including a web server (apache, nginx, etc.), PHP, MySQL.
 2. Composer dependency manager
 
-Clone this repo inside `wp-contents/plugins` directory of your WordPress installation (distribution) and from root directory run:
+Clone this repo inside `wp-contents/plugins` directory of your WordPress installation (distribution) and from the repo root directory run:
 
 ```shell
 composer install
