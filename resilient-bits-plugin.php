@@ -37,82 +37,16 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
     require_once __DIR__ . '/vendor/autoload.php';
 }
 
-use ResilientBits\Inc\PluginStateManager;
-use ResilientBits\Inc\Admin\AdminPages;
+// define global constants
+// define('RESILIENTBITSPLUGIN_NAME', plugin_basename(__FILE__));
+define('PLUGIN_URL', plugin_dir_url(__FILE__));
+define('PLUGIN_PATH', plugin_dir_path(__FILE__));
 
-if (!class_exists('ResilientBitsPlugin')) {
 
-    class ResilientBitsPlugin {
-        public string $plugin;
+// use ResilientBits\Inc\Init;
+// ResilientBits\Inc\Init::register_services();
 
-        public function __construct() {
-            $this->plugin = plugin_basename (__FILE__);
-        }
-
-        public function register() {
-            add_action('admin_enqueue_scripts', [$this, 'enqueue']);
-
-            add_action('admin_menu', [$this, 'add_admin_pages']);
-
-            add_filter("plugin_action_links_$this->plugin", [$this, 'settings_link']);
-        }
-
-        public function settings_link($links) {
-            $settings_link = '<a href="admin.php?page=resilientbits_plugin">Settings</a>';
-            array_push($links, $settings_link);
-            return $links;
-        }
-
-        public function add_admin_pages() {
-            add_menu_page(
-                'Resilient Bits Plugin', // page title
-                'ResilientBits', // menu title
-                'manage_options', // capability
-                'resilientbits_plugin', // menu slug
-                [$this, 'admin_index'], // callback
-                'dashicons-store', // icon
-                110 // position
-            );
-        }
-
-        public function admin_index() {
-            require_once plugin_dir_path(__FILE__) . 'templates/admin.php';
-        }
-
-        protected function create_post_type() {
-            add_action('init', [$this, 'custom_post_type']);
-        }
-
-        public function custom_post_type() {
-            register_post_type('book', ['public' => true, 'label' => 'Books']);
-        }
-
-        public function enqueue() {
-            // enqueue all our scripts
-            wp_enqueue_style('resbitpluginstyle', plugins_url('/assets/style.css', __FILE__));
-            wp_enqueue_script('resbitpluginscript', plugins_url('/assets/script.js', __FILE__));
-        }
-
-        public function activate() {
-            // call protected method to register CPT
-            // $this->create_post_type();
-            // flush rewrite rules
-            PluginStateManager::activate();
-        }
-    }
-
-    $resbitPlugin = new ResilientBitsPlugin();
-    $resbitPlugin->register();  // register hooks
-
-    // activation
-    register_activation_hook(__FILE__, [$resbitPlugin, 'activate']);
-
-    // deactivation
-    /* use fully qualified class name:
-       - 'ResilientBits\Inc\PluginStateManager', or
-       - PluginStateManager::class
-    */
-    register_deactivation_hook(__FILE__, [PluginStateManager::class, 'deactivate']);
-
-    // uninstall via uninstall.php
+if ( class_exists( ResilientBits\Inc\Init::class ) ) {
+    // echo '<div id="message" class="notice is-dismissible updated"><p>Found Init class.</p><button type="button" class="notice-dismiss" data-bcup-haslogintext="no"><span class="screen-reader-text">Dismiss this notice.</span></button></div>';
+    ResilientBits\Inc\Init::register_services();
 }
