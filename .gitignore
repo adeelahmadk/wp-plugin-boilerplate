@@ -10,6 +10,7 @@
 *.vi
 *~
 *.sass-cache
+scrap
 
 # OS or Editor folders
 .DS_Store
