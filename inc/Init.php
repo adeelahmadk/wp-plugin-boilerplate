@@ -16,7 +16,8 @@ final class Init
     {
         return [
             Pages\Admin::class,
-            Base\Enqueue::class
+            Base\Enqueue::class,
+            Base\SettingsLinks::class
         ];
     }
 
@@ -40,7 +41,8 @@ final class Init
      * @param string $class class form the services array
      * @return object new instance of the class
      */
-    private static function instantiate(string $class): object {
+    private static function instantiate(string $class): object
+    {
         return new $class();
     }
 }

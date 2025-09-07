@@ -8,12 +8,15 @@ namespace ResilientBits\Inc\Base;
 /**
  * Manages activate/deactivate states of a plugin
  */
-class StateManager {
-  public static function activate() {
+class StateManager
+{
+  public static function activate()
+  {
     flush_rewrite_rules();
   }
-  
-  public static function deactivate() {
+
+  public static function deactivate()
+  {
     flush_rewrite_rules();
   }
 }

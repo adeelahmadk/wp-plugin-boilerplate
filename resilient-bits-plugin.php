@@ -38,18 +38,29 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
 }
 
 // define global constants
+define('PLUGIN', plugin_basename(__FILE__));
 define(
     'PLUGIN_NAME',
     ucwords(
         str_replace(
             "-",
             " ",
-            explode("/", plugin_basename(__FILE__))[0]
+            explode("/", PLUGIN)[0]
         )
     )
 );
 define('PLUGIN_URL', plugin_dir_url(__FILE__));
 define('PLUGIN_PATH', plugin_dir_path(__FILE__));
+
+// activation
+register_activation_hook(__FILE__, ['ResilientBits\\Inc\\Base\\StateManager', 'activate']);
+
+// deactivation
+/* use fully qualified class name:
+    - 'ResilientBits\Inc\Base\StateManager', or
+    - StateManager::class
+*/
+register_deactivation_hook(__FILE__, ['ResilientBits\\Inc\\Base\\StateManager', 'deactivate']);
 
 if (class_exists(ResilientBits\Inc\Init::class)) {
     ResilientBits\Inc\Init::register_services();
