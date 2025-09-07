@@ -13,3 +13,21 @@ Clone this repo inside `wp-contents/plugins` directory of your WordPress install
 ```shell
 composer install
 ```
+
+## Features
+
+Whish list:
+
+* [x] Modular Admin Area
+* [ ] CPT Manager
+* [ ] Custom Taxonomy Manager
+* [ ] Sidebar Widget to Upload and Display media
+* [ ] Post and Pages Gallery Integration
+* [ ] Testimonials:
+    * comment in front-end
+    * admin can approve
+    * select which comment to display
+* [ ] Custom Template Section
+* [ ] AJAX based login/register system
+* [ ] Membership protected area
+* [ ] Chat system

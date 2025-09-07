@@ -6,44 +6,56 @@
  */
 namespace ResilientBits\Inc\Pages;
 
+use ResilientBits\Inc\Api\SettingsApi;
+
 class Admin extends \ResilientBits\Inc\Base\BaseController
 {
+	public $settings;
+
+	public $pages = [];
+
 	public function __construct()
 	{
 		parent::__construct();
+		$this->settings = new SettingsApi();
+		$this->pages = [
+			[
+				'page_title' => 'Resilient Bits Plugin',
+				'menu_title' => 'ResilientBits',
+				'capability' => 'manage_options',
+				'menu_slug' => 'resilientbits_plugin',
+				'callback' => function () {
+					echo '<h1>Resilient Bits</h1>';
+				},
+				'icon_url' => 'dashicons-store',
+				'position' => 110
+			],
+			[
+				'page_title' => 'Test Plugin',
+				'menu_title' => 'Test',
+				'capability' => 'manage_options',
+				'menu_slug' => 'test_plugin',
+				'callback' => function () {
+					echo '<h1>External Test</h1>';
+				},
+				'icon_url' => 'dashicons-external',
+				'position' => 9
+			]
+		];
 	}
 
 	public function register(): void
 	{
-		add_action('admin_menu', [$this, 'add_admin_pages']);
+		// add_action('admin_menu', [$this, 'add_admin_pages']);
+		$this->settings->addPages($this->pages)->register();
 	}
 
-	public function add_admin_pages(): void
-	{
-		add_menu_page(
-			'Resilient Bits Plugin', // page title
-			'ResilientBits', // menu title
-			'manage_options', // capability
-			'resilientbits_plugin', // menu slug
-			[$this, 'admin_index'], // callback
-			'dashicons-store', // icon
-			110 // position
-		);
-	}
-
-	public function admin_index(): void
-	{
-		require_once "{$this->plugin_path}templates/admin.php";
-		$this->index();
-	}
-	public function index(): void
-	{
-		?>
-		<h2>Admin Page</h2>
-		<div id="notice-message" class="notice notice-info is-dismissible">
-			<p>Admin page registered in <?php echo "{$this->plugin}"; ?>.</p>
-		</div>
-		<p>Welcome to the admin page of our <?php echo $this->plugin_name; ?>!</p>
-		<?php
-	}
+	// public function admin_index(): void
+	// {
+	// 	require_once "{$this->plugin_path}templates/admin.php";
+	// 	$this->index();
+	// }
+	// public function index(): void
+	// {
+	// }
 }

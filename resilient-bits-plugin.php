@@ -43,7 +43,7 @@ register_activation_hook(__FILE__, [ResilientBits\Inc\Base\StateManager::class, 
 // deactivation
 /* use fully qualified class name:
     - 'ResilientBits\Inc\Base\StateManager', or
-    - StateManager::class
+    - ResilientBits\Inc\Base\StateManager::class
 */
 register_deactivation_hook(__FILE__, [ResilientBits\Inc\Base\StateManager::class, 'deactivate']);
 
