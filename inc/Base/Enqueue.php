@@ -6,7 +6,7 @@
  */
 namespace ResilientBits\Inc\Base;
 
-class Enqueue
+class Enqueue extends \ResilientBits\Inc\Base\BaseController
 {
     public function register(): void
     {
@@ -16,8 +16,7 @@ class Enqueue
     public function enqueue()
     {
         // enqueue all our scripts
-        wp_enqueue_style('resbit_plugin_style', PLUGIN_URL . 'assets/style.css');
-        wp_enqueue_script('resbit_plugin_script', PLUGIN_URL . 'assets/script.js');
+        wp_enqueue_style('resbit_plugin_style', "{$this->plugin_url}assets/style.css");
+        wp_enqueue_script('resbit_plugin_script', "{$this->plugin_url}assets/script.js");
     }
-
 }

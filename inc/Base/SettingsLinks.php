@@ -7,12 +7,12 @@
  */
 namespace ResilientBits\Inc\Base;
 
-class SettingsLinks
+class SettingsLinks extends BaseController
 {
     public function register(): void
     {
         add_filter(
-            'plugin_action_links_' . PLUGIN,
+            "plugin_action_links_$this->plugin",
             [$this, 'add_settings_link']
         );
     }

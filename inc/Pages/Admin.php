@@ -6,10 +6,11 @@
  */
 namespace ResilientBits\Inc\Pages;
 
-class Admin
+class Admin extends \ResilientBits\Inc\Base\BaseController
 {
 	public function __construct()
 	{
+		parent::__construct();
 	}
 
 	public function register(): void
@@ -32,7 +33,7 @@ class Admin
 
 	public function admin_index(): void
 	{
-		require_once PLUGIN_PATH . 'templates/admin.php';
+		require_once "{$this->plugin_path}templates/admin.php";
 		$this->index();
 	}
 	public function index(): void
@@ -40,9 +41,9 @@ class Admin
 		?>
 		<h2>Admin Page</h2>
 		<div id="notice-message" class="notice notice-info is-dismissible">
-			<p>Admin page registered in <?php echo PLUGIN_PATH . 'inc/Pages'; ?>.</p>
+			<p>Admin page registered in <?php echo "{$this->plugin}"; ?>.</p>
 		</div>
-		<p>Welcome to the admin page of our <?php echo PLUGIN_NAME; ?>!</p>
+		<p>Welcome to the admin page of our <?php echo $this->plugin_name; ?>!</p>
 		<?php
 	}
 }
