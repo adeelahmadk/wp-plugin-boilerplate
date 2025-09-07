@@ -1,24 +1,15 @@
 <?php
 /**
+ * Adds admin menu and creates admin page content.
+ * 
  * @package  ResilientBitsPlugin
  */
 namespace ResilientBits\Inc\Pages;
 
 class Admin
 {
-	protected $fileName;
-	protected $title;
-
 	public function __construct()
 	{
-		$this->fileName = plugin_basename(__FILE__);
-		$this->title = ucwords(
-			str_replace(
-				"-",
-				" ",
-				explode("/", $this->fileName)[0]
-			)
-		);
 	}
 
 	public function register(): void
@@ -51,7 +42,7 @@ class Admin
 		<div id="notice-message" class="notice notice-info is-dismissible">
 			<p>Admin page registered in <?php echo PLUGIN_PATH . 'inc/Pages'; ?>.</p>
 		</div>
-		<p>Welcome to the admin page of our <?php echo $this->title; ?>!</p>
+		<p>Welcome to the admin page of our <?php echo PLUGIN_NAME; ?>!</p>
 		<?php
 	}
 }

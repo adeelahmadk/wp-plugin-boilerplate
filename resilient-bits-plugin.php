@@ -1,7 +1,7 @@
 <?php
 /**
-* @package  ResilientBitsPlugin
-*/
+ * @package  ResilientBitsPlugin
+ */
 /*
 Plugin Name: Resilient Bits Plugin
 Plugin URI: https://github.com/adeelahmadk/wp-plugin-boilerplate
@@ -38,15 +38,19 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
 }
 
 // define global constants
-// define('RESILIENTBITSPLUGIN_NAME', plugin_basename(__FILE__));
+define(
+    'PLUGIN_NAME',
+    ucwords(
+        str_replace(
+            "-",
+            " ",
+            explode("/", plugin_basename(__FILE__))[0]
+        )
+    )
+);
 define('PLUGIN_URL', plugin_dir_url(__FILE__));
 define('PLUGIN_PATH', plugin_dir_path(__FILE__));
 
-
-// use ResilientBits\Inc\Init;
-// ResilientBits\Inc\Init::register_services();
-
-if ( class_exists( ResilientBits\Inc\Init::class ) ) {
-    // echo '<div id="message" class="notice is-dismissible updated"><p>Found Init class.</p><button type="button" class="notice-dismiss" data-bcup-haslogintext="no"><span class="screen-reader-text">Dismiss this notice.</span></button></div>';
+if (class_exists(ResilientBits\Inc\Init::class)) {
     ResilientBits\Inc\Init::register_services();
 }

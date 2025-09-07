@@ -1,5 +1,7 @@
 <?php
 /**
+ * Initializes services
+ *  
  * @package  ResilientBitsPlugin
  */
 namespace ResilientBits\Inc;

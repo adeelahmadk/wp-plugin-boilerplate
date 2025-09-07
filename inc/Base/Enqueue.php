@@ -1,5 +1,7 @@
 <?php
 /**
+ * Enqueues styles and scripts
+ * 
  * @package  ResilientBitsPlugin
  */
 namespace ResilientBits\Inc\Base;
