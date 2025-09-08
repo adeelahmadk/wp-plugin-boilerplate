@@ -14,6 +14,8 @@ class Admin extends \ResilientBits\Inc\Base\BaseController
 
 	public $pages = [];
 
+	public $subpages = [];
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -29,33 +31,49 @@ class Admin extends \ResilientBits\Inc\Base\BaseController
 				},
 				'icon_url' => 'dashicons-store',
 				'position' => 110
+			]
+		];
+
+		$this->subpages = [
+			[
+				'parent_slug' => 'resilientbits_plugin',
+				'page_title' => 'Custom Post Types',
+				'menu_title' => 'CPT',
+				'capability' => 'manage_options',
+				'menu_slug' => 'resilientbits_cpt',
+				'callback' => function () {
+					echo '<h1>CPT Manager</h1>';
+				}
 			],
 			[
-				'page_title' => 'Test Plugin',
-				'menu_title' => 'Test',
+				'parent_slug' => 'resilientbits_plugin',
+				'page_title' => 'Custom Taxonomies',
+				'menu_title' => 'Taxonomies',
 				'capability' => 'manage_options',
-				'menu_slug' => 'test_plugin',
+				'menu_slug' => 'resilientbits_taxonomies',
 				'callback' => function () {
-					echo '<h1>External Test</h1>';
-				},
-				'icon_url' => 'dashicons-external',
-				'position' => 9
-			]
+					echo '<h1>Taxonomies Manager</h1>';
+				}
+			],
+			[
+				'parent_slug' => 'resilientbits_plugin',
+				'page_title' => 'Custom Widgets',
+				'menu_title' => 'Widgets',
+				'capability' => 'manage_options',
+				'menu_slug' => 'resilientbits_widgets',
+				'callback' => function () {
+					echo '<h1>Widgets Manager</h1>';
+				}
+			],
 		];
 	}
 
 	public function register(): void
 	{
-		// add_action('admin_menu', [$this, 'add_admin_pages']);
-		$this->settings->addPages($this->pages)->register();
+		$this->settings
+			->addPages($this->pages)
+			->withSubPage('Dashboard')
+			->addSubPages($this->subpages)
+			->register();
 	}
-
-	// public function admin_index(): void
-	// {
-	// 	require_once "{$this->plugin_path}templates/admin.php";
-	// 	$this->index();
-	// }
-	// public function index(): void
-	// {
-	// }
 }
