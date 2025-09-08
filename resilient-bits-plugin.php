@@ -37,14 +37,14 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
     require_once __DIR__ . '/vendor/autoload.php';
 }
 
-// activation
-register_activation_hook(__FILE__, [ResilientBits\Inc\Base\StateManager::class, 'activate']);
-
-// deactivation
 /* use fully qualified class name:
     - 'ResilientBits\Inc\Base\StateManager', or
     - ResilientBits\Inc\Base\StateManager::class
 */
+// activation
+register_activation_hook(__FILE__, [ResilientBits\Inc\Base\StateManager::class, 'activate']);
+
+// deactivation
 register_deactivation_hook(__FILE__, [ResilientBits\Inc\Base\StateManager::class, 'deactivate']);
 
 if (class_exists(ResilientBits\Inc\Init::class)) {
