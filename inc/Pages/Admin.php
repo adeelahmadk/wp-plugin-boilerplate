@@ -20,6 +20,10 @@ class Admin extends BaseController
 
 	public $subpages = [];
 
+	/**
+	 * Register admin menu, pages, subpages, and callbacks.
+	 * @return void
+	 */
 	public function register(): void
 	{
 		$this->settings = new SettingsApi();
@@ -37,6 +41,10 @@ class Admin extends BaseController
 			->register();
 	}
 
+	/**
+	 * Populates args for admin pages
+	 * @return void
+	 */
 	protected function setPages(): void {
 		$this->pages = [
 			[
@@ -51,7 +59,11 @@ class Admin extends BaseController
 		];		
 	}
 
-	protected function setSubpages() {
+	/**
+	 * Populates args for admin subpages
+	 * @return void
+	 */
+	protected function setSubpages(): void {
 		$this->subpages = [
 			[
 				'parent_slug' => 'resilientbits_plugin',

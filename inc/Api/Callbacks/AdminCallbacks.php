@@ -9,7 +9,11 @@ namespace ResilientBits\Inc\Api\Callbacks;
 use ResilientBits\Inc\Base\BaseController;
 
 class AdminCallbacks extends BaseController {
-    public function adminDashboard() {
+    /**
+     * Callback to load Admin dashboard template.
+     * @return bool
+     */
+    public function adminDashboard(): bool {
         return require_once "$this->plugin_path/templates/admin.php";
     }
 

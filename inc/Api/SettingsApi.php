@@ -1,6 +1,6 @@
 <?php
 /**
- * Settings API.
+ * Provides API to Admin Menu Settings.
  * 
  * @author Adeel Ahmad <6880680+adeelahmadk@users.noreply.github.com>
  * @package  ResilientBitsPlugin
@@ -13,6 +13,10 @@ class SettingsApi
 
     public $admin_subpages = [];
 
+    /**
+     * Registers callback for admin_menu hook.
+     * @return void
+     */
     public function register(): void
     {
         if (!empty($this->admin_pages)) {
@@ -20,7 +24,13 @@ class SettingsApi
         }
     }
 
-        public function addAdminMenu(): void
+    /**
+     * Callback for admin_menu hook.
+     * 
+     * Adds menu pages and subpages iteratively.
+     * @return void
+     */
+    public function addAdminMenu(): void
     {
         foreach ($this->admin_pages as $page) {
             add_menu_page(
@@ -46,6 +56,11 @@ class SettingsApi
         }
     }
 
+    /**
+     * Stores page args.
+     * @param array $pages Array of page arg arrays
+     * @return SettingsApi Current instance of the class
+     */
     public function addPages(array $pages): self
     {
         $this->admin_pages = $pages;
@@ -53,6 +68,11 @@ class SettingsApi
         return $this;
     }
 
+    /**
+     * Stores args for the first subpage
+     * @param string $title Title of first subpage
+     * @return SettingsApi Current instance of the class
+     */
     public function withSubPage(string $title = null): self
     {
         if (empty($this->admin_pages)) {
@@ -65,10 +85,10 @@ class SettingsApi
             [
                 'parent_slug' => $admin_page['menu_slug'],
                 'page_title' => $admin_page['page_title'],
-                'menu_title'=> $title ?? $admin_page['menu_title'],
-                'capability'=> $admin_page['capability'],
-                'menu_slug'=> $admin_page['menu_slug'],
-                'callback'=> $admin_page['callback']
+                'menu_title' => $title ?? $admin_page['menu_title'],
+                'capability' => $admin_page['capability'],
+                'menu_slug' => $admin_page['menu_slug'],
+                'callback' => $admin_page['callback']
             ]
         ];
 
@@ -76,10 +96,15 @@ class SettingsApi
         return $this;
     }
 
-    public function addSubPages(array $pages): self {
+    /**
+     * Stores args for the subpages
+     * @param array $pages Array of subpage arg arrays
+     * @return SettingsApi Current instance of the class
+     */
+    public function addSubPages(array $pages): self
+    {
         $this->admin_subpages = array_merge($this->admin_subpages, $pages);
-        
+
         return $this;
     }
-
 }
