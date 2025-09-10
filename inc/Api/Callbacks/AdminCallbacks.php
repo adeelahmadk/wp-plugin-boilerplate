@@ -37,15 +37,23 @@ class AdminCallbacks extends BaseController {
         echo 'Custom Settings Section...';
     }
 
+    /**
+     * Callback to render custom input field with stored value.
+     * @return void
+     */
     public function resilientbitsLastName() {
         $value = esc_attr( get_option('last_name') );
-        echo '<input type="text" class="regular-text" name="last_name" value="' . $value .
-            '" placeholder="Your last name here...">';
+        echo '<input type="text" class="regular-text" name="last_name" ' . 
+            'value="' . $value . '" placeholder="Your last name here...">';
     }
 
+    /**
+     * Callback to render custom input field with stored value.
+     * @return void
+     */
     public function resilientbitsFirstName() {
         $value = esc_attr( get_option('first_name') );
-        echo '<input type="text" class="regular-text" name="first_name" value="' . $value .
-            '" placeholder="Your first name here...">';
+        echo '<input type="text" class="regular-text" name="first_name" ' .
+            'value="' . $value . '" placeholder="Your first name here...">';
     }
 }

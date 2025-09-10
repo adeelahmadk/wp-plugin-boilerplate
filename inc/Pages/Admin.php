@@ -98,6 +98,10 @@ class Admin extends BaseController
 		];
 	}
 
+	/**
+	 * Initializes args for custom settings for the admin page.
+	 * @return void
+	 */
 	public function setupCustomSettings()
 	{
 		$args = [
@@ -114,6 +118,10 @@ class Admin extends BaseController
 		$this->settings->setCustomSettings($args);
 	}
 
+	/**
+	 * Initializes args for sections in a custom setting.
+	 * @return void
+	 */
 	public function setupSettingsSection()
 	{
 		$args = [
@@ -127,6 +135,10 @@ class Admin extends BaseController
 		$this->settings->setCustomSettingSections($args);
 	}
 
+	/**
+	 * Initializes args for fields in a custom setting
+	 * @return void
+	 */
 	public function setupSettingsFields()
 	{
 		$args = [

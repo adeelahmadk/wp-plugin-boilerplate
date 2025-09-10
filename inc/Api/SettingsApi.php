@@ -21,12 +21,6 @@ class SettingsApi
     
     public $fields = [];
 
-    public $callbacks;
-
-    public function __construct() {
-        $this->callbacks = new AdminCallbacks();
-    }
-
     /**
      * Registers callbacks for admin menu & custom fields.
      * @return void
@@ -139,8 +133,8 @@ class SettingsApi
     }
 
     /**
-     * Stores a section of a setting
-     * @param array $sections
+     * Stores sections for a setting.
+     * @param array $sections Data to describe a section
      * @return SettingsApi Current instance of the class
      */
     public function setCustomSettingSections(array $sections): self
@@ -151,9 +145,9 @@ class SettingsApi
     }
 
     /**
-     * Stores a 
-     * @param array $fields
-     * @return SettingsApi
+     * Stores fields for a custom setting.
+     * @param array $fields Data to describe fields
+     * @return SettingsApi Current instance of the class
      */
     public function setCustomSettingFields(array $fields): self
     {
@@ -162,6 +156,10 @@ class SettingsApi
         return $this;
     }
 
+    /**
+     * Registers custom settings, sections, and fields.
+     * @return void
+     */
     public function registerCustomFields()
     {
         // register setting
