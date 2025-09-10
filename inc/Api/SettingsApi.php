@@ -1,4 +1,4 @@
-<?php
+<?php 
 /**
  * Provides API to Admin Menu Settings.
  * 
@@ -7,20 +7,38 @@
  */
 namespace ResilientBits\Inc\Api;
 
+use ResilientBits\Inc\Api\Callbacks\AdminCallbacks;
+
 class SettingsApi
 {
     public $admin_pages = [];
 
     public $admin_subpages = [];
 
+    public $settings = [];
+
+    public $sections = [];
+    
+    public $fields = [];
+
+    public $callbacks;
+
+    public function __construct() {
+        $this->callbacks = new AdminCallbacks();
+    }
+
     /**
-     * Registers callback for admin_menu hook.
+     * Registers callbacks for admin menu & custom fields.
      * @return void
      */
     public function register(): void
     {
         if (!empty($this->admin_pages)) {
             add_action("admin_menu", [$this, "addAdminMenu"]);
+        }
+
+        if (!empty($this->settings)) {
+            add_action("admin_init", [$this,"registerCustomFields"]);
         }
     }
 
@@ -106,5 +124,75 @@ class SettingsApi
         $this->admin_subpages = array_merge($this->admin_subpages, $pages);
 
         return $this;
+    }
+
+    /**
+     * Stores a custom setting and its data.
+     * @param array $settings Data used to describe the custom setting at registration
+     * @return SettingsApi Current instance of the class
+     */
+    public function setCustomSettings(array $settings): self
+    {
+        $this->settings = $settings;
+
+        return $this;
+    }
+
+    /**
+     * Stores a section of a setting
+     * @param array $sections
+     * @return SettingsApi Current instance of the class
+     */
+    public function setCustomSettingSections(array $sections): self
+    {
+        $this->sections = $sections;
+
+        return $this;
+    }
+
+    /**
+     * Stores a 
+     * @param array $fields
+     * @return SettingsApi
+     */
+    public function setCustomSettingFields(array $fields): self
+    {
+        $this->fields = $fields;
+
+        return $this;
+    }
+
+    public function registerCustomFields()
+    {
+        // register setting
+        foreach ($this->settings as $setting) {
+            register_setting(
+                $setting['option_group'],
+                $setting['option_name'],
+                $setting['callback'] ?? ''
+            );
+        }
+
+        // add settings section
+        foreach ($this->sections as $section) {
+            add_settings_section(
+                $section['id'],
+                $section['title'],
+                $section['callback'] ?? '',
+                $section['page']
+            );
+        }
+
+        // add setting fields
+        foreach ($this->fields as $field) {
+            add_settings_field(
+                $field['id'],
+                $field['title'],
+                $field['callback'] ?? '',
+                $field['page'],
+                $field['section'],
+                $field['args'] ?? []
+            );
+        }
     }
 }

@@ -34,6 +34,10 @@ class Admin extends BaseController
 
 		$this->setSubpages();
 
+		$this->setupCustomSettings();
+		$this->setupSettingsSection();
+		$this->setupSettingsFields();
+
 		$this->settings
 			->addPages($this->pages)
 			->withSubPage('Dashboard')
@@ -45,25 +49,27 @@ class Admin extends BaseController
 	 * Populates args for admin pages
 	 * @return void
 	 */
-	protected function setPages(): void {
+	protected function setPages(): void
+	{
 		$this->pages = [
 			[
 				'page_title' => 'Resilient Bits Plugin',
 				'menu_title' => 'ResilientBits',
 				'capability' => 'manage_options',
 				'menu_slug' => 'resilientbits_plugin',
-				'callback' => [ $this->callbacks, 'adminDashboard' ],
+				'callback' => [$this->callbacks, 'adminDashboard'],
 				'icon_url' => 'dashicons-store',
 				'position' => 110
 			]
-		];		
+		];
 	}
 
 	/**
 	 * Populates args for admin subpages
 	 * @return void
 	 */
-	protected function setSubpages(): void {
+	protected function setSubpages(): void
+	{
 		$this->subpages = [
 			[
 				'parent_slug' => 'resilientbits_plugin',
@@ -71,7 +77,7 @@ class Admin extends BaseController
 				'menu_title' => 'CPT',
 				'capability' => 'manage_options',
 				'menu_slug' => 'resilientbits_cpt',
-				'callback' => [ $this->callbacks,'adminCPTManager'],
+				'callback' => [$this->callbacks, 'adminCPTManager'],
 			],
 			[
 				'parent_slug' => 'resilientbits_plugin',
@@ -79,7 +85,7 @@ class Admin extends BaseController
 				'menu_title' => 'Taxonomies',
 				'capability' => 'manage_options',
 				'menu_slug' => 'resilientbits_taxonomies',
-				'callback' => [ $this->callbacks,'adminTaxonomiesManager']
+				'callback' => [$this->callbacks, 'adminTaxonomiesManager']
 			],
 			[
 				'parent_slug' => 'resilientbits_plugin',
@@ -87,8 +93,66 @@ class Admin extends BaseController
 				'menu_title' => 'Widgets',
 				'capability' => 'manage_options',
 				'menu_slug' => 'resilientbits_widgets',
-				'callback' => [ $this->callbacks,'adminWidgetsManager']
+				'callback' => [$this->callbacks, 'adminWidgetsManager']
 			],
 		];
+	}
+
+	public function setupCustomSettings()
+	{
+		$args = [
+			[
+				'option_group' => 'resilientbits_options_group',
+				'option_name' => 'first_name',
+				'callback' => [$this->callbacks, 'resilientbitsOptionsGroup']
+			],
+			[
+				'option_group' => 'resilientbits_options_group',
+				'option_name' => 'last_name'
+			]
+		];
+		$this->settings->setCustomSettings($args);
+	}
+
+	public function setupSettingsSection()
+	{
+		$args = [
+			[
+				'id' => 'resilientbits_admin_index',
+				'title' => 'Settings',
+				'callback' => [$this->callbacks, 'resilientbitsAdminSection'],
+				'page' => 'resilientbits_plugin'
+			]
+		];
+		$this->settings->setCustomSettingSections($args);
+	}
+
+	public function setupSettingsFields()
+	{
+		$args = [
+			[
+				'id' => 'first_name',
+				'title' => 'First Name',
+				'callback' => [$this->callbacks, 'resilientbitsFirstName'],
+				'page' => 'resilientbits_plugin',
+				'section' => 'resilientbits_admin_index',
+				'args' => [
+					'label_for' => 'first_name',
+					'class' => 'example-class'
+				]
+			],
+			[
+				'id' => 'last_name',
+				'title' => 'Last Name',
+				'callback' => [$this->callbacks, 'resilientbitsLastName'],
+				'page' => 'resilientbits_plugin',
+				'section' => 'resilientbits_admin_index',
+				'args' => [
+					'label_for' => 'last_name',
+					'class' => 'example-class'
+				]
+			],
+		];
+		$this->settings->setCustomSettingFields($args);
 	}
 }
