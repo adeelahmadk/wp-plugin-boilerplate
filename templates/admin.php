@@ -25,6 +25,27 @@
 
         <div id="tab-3" class="tab-pane">
             <h3>About</h3>
+            <p>
+                We are a small but highly productive software agency focused on web application development.
+                Our services include development of:
+            </p>
+            <ul>
+                <li>WordPress Websites</li>
+                <li>Online Stores & E-Commerce</li>
+                <li>REST APIs</li>
+                <li>PWAs</li>
+            </ul>
+            <div class="info">
+                <p class="title">Resilient Bits Tech</p>
+                <p class="caption">Software & Data Consultants</p>
+                <p>Visit us on:</p>
+                <p>
+                    <ul>
+                        <li><a href="https://resilientbits.github.io">Web</a></li>
+                        <li><a href="https://resilientbits.github.io">GitHub</a></li>
+                    </ul>
+                </p>
+            </div>
         </div>
     </div>
 

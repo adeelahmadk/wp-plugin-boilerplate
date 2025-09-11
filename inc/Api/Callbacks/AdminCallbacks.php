@@ -34,7 +34,7 @@ class AdminCallbacks extends BaseController {
     }
 
     public function resilientbitsAdminSection() {
-        echo 'Custom Settings Section...';
+        echo 'Enter your custom settings here';
     }
 
     /**
